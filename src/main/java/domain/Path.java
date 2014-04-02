@@ -1,7 +1,5 @@
 package domain;
 
-import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Writable;
 
 import java.io.DataInput;
@@ -11,45 +9,45 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Path implements Writable {
-    IntWritable length = new IntWritable();
-    List<LongWritable> pathElements = new ArrayList<LongWritable>();
+    List<Long> pathElements = new ArrayList<Long>();
 
-    public IntWritable getLength() {
-        return length;
+    public int getLength() {
+        return pathElements.size();
     }
 
-    public List<LongWritable> getPathElements() {
+    public List<Long> getPathElements() {
         return pathElements;
     }
 
     @Override
     public void write(DataOutput dataOutput) throws IOException {
-        length.write(dataOutput);
-        for (LongWritable pathElement : pathElements) {
-            pathElement.write(dataOutput);
+        System.err.println("Writing: " + pathElements);
+        dataOutput.writeInt(pathElements.size());
+        for (Long pathElement : pathElements) {
+            dataOutput.writeLong(pathElement);
         }
     }
 
     @Override
     public void readFields(DataInput dataInput) throws IOException {
-        length.readFields(dataInput);
-        for (int i = 0; i < length.get(); i++) {
-            LongWritable p = new LongWritable();
-            p.readFields(dataInput);
-            pathElements.add(p);
+        pathElements.clear();
+        int length = dataInput.readInt();
+        for (int i = 0; i < length; i++) {
+            pathElements.add(dataInput.readLong());
         }
+        System.err.println("Read: " + pathElements);
     }
 
-    public void append(LongWritable pathElement) {
+    public void append(Long pathElement) {
+        System.out.println("Appending " + pathElement);
         pathElements.add(pathElement);
-        length.set(pathElements.size());
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (LongWritable pathElement : pathElements) {
-            sb.append(pathElement.get());
+        for (Long pathElement : pathElements) {
+            sb.append(pathElement);
             sb.append("|");
         }
         sb.delete(sb.length() - 1, sb.length());
