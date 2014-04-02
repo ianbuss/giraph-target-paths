@@ -21,7 +21,6 @@ public class Path implements Writable {
 
     @Override
     public void write(DataOutput dataOutput) throws IOException {
-        System.err.println("Writing: " + pathElements);
         dataOutput.writeInt(pathElements.size());
         for (Long pathElement : pathElements) {
             dataOutput.writeLong(pathElement);
@@ -35,11 +34,9 @@ public class Path implements Writable {
         for (int i = 0; i < length; i++) {
             pathElements.add(dataInput.readLong());
         }
-        System.err.println("Read: " + pathElements);
     }
 
     public void append(Long pathElement) {
-        System.out.println("Appending " + pathElement);
         pathElements.add(pathElement);
     }
 

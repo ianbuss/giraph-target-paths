@@ -23,7 +23,6 @@ public class LongVertexValueTextVertexValueInputFormat<E extends Writable> exten
         @Override
         protected MyVertex preprocessLine(Text text) throws IOException {
             String[] tokens = StringUtils.splitPreserveAllTokens(text.toString());
-            System.out.println(text.toString());
             return new MyVertex(
                     Long.valueOf(tokens[0]),
                     new VertexValue(tokens[1], tokens[2])
