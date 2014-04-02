@@ -1,4 +1,4 @@
-/*
+package algos;/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -16,27 +16,13 @@
  * limitations under the License.
  */
 
-import org.apache.giraph.graph.BasicComputation;
-import org.apache.giraph.graph.Vertex;
-import org.apache.hadoop.io.Writable;
-import org.apache.hadoop.io.WritableComparable;
-
-import java.io.IOException;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.NullWritable;
 
 /**
- * Computation which does nothing, just halts, used for testing
- *
- * @param <I> Vertex id
- * @param <V> Vertex data
- * @param <E> Edge data
- * @param <M> Message data
+ * Computation which does nothing, used for testing. Vertex ids and values
+ * are integers, edge values and messages are nulls.
  */
-public class NoOpComputation<I extends WritableComparable, V extends Writable,
-    E extends Writable, M extends Writable>
-    extends BasicComputation<I, V, E, M> {
-  @Override
-  public void compute(Vertex<I, V, E> vertex,
-      Iterable<M> messages) throws IOException {
-    vertex.voteToHalt();
-  }
+public class IntIntNullNoOpComputation extends
+        NoOpComputation<IntWritable, IntWritable, NullWritable, NullWritable> {
 }

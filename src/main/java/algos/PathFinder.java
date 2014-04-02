@@ -1,3 +1,5 @@
+package algos;
+
 import com.google.common.base.Splitter;
 import domain.Path;
 import domain.VertexValue;
@@ -12,7 +14,7 @@ import java.io.IOException;
 
 public class PathFinder extends BasicComputation<LongWritable, VertexValue, NullWritable, Path> {
 
-    private static final StrConfOption TARGET_TYPES_OPTION = new StrConfOption("PathFinder.targets", "PERSON:ORGANIZATION", "Target vertex types");
+    private static final StrConfOption TARGET_TYPES_OPTION = new StrConfOption("algos.PathFinder.targets", "PERSON:ORGANIZATION", "Target vertex types");
     private static final Splitter TARGET_TYPES_OPTION_SPLITTER = Splitter.on(':').omitEmptyStrings().trimResults();
 
     private boolean isTargetType(VertexValue vertex) {
