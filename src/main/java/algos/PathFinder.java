@@ -23,7 +23,7 @@ public class PathFinder extends BasicComputation<LongWritable, VertexValue, Null
     private boolean isTargetType(VertexValue vertex) {
         String targetTypes = TARGET_TYPES_OPTION.get(getConf());
         boolean isTargetType = false;
-        for (String targetType : TARGET_TYPES_OPTION_SPLITTER.split(vertex.getType())) {
+        for (String targetType : TARGET_TYPES_OPTION_SPLITTER.split(targetTypes)) {
             if (vertex.getType().equals(targetType)) {
                 isTargetType = true;
             }
@@ -37,6 +37,9 @@ public class PathFinder extends BasicComputation<LongWritable, VertexValue, Null
             LOG.debug("[" + getSuperstep() + "] Checking type: " + vertex.toString());
         }
         boolean isTargetType = isTargetType(vertex.getValue());
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("[" + getSuperstep() + "] " + vertex.getId().get() + " is a target type '" + vertex.getValue().getType());
+        }
 
         // Broadcast messages at the beginning of the algorithm
         if (getSuperstep() == 0 && isTargetType) {

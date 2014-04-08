@@ -37,7 +37,7 @@ public class VertexValue implements Writable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("{type='" + type + '\'' + ",value='" + value + '\'' + ", numpaths=" + cachedPaths.size() + "}\n");
+        sb.append("{type='" + type + '\'' + ",value='" + value + '\'' + ",numpaths=" + cachedPaths.size() + "}\n");
         for (Path path : cachedPaths) {
             sb.append(path.toString());
             sb.append("\n");
